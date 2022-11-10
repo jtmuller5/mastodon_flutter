@@ -35,12 +35,12 @@ class _MediaScreenState extends State<_MediaScreen> {
 
   Status get status => widget.status;
   Attachment get attachment => widget.attachment;
-  int get referralIndex => status.mediaAttachments.indexOf(attachment);
+  int? get referralIndex => status.mediaAttachments?.indexOf(attachment);
 
   @override
   initState() {
     _controller = PageController(
-      initialPage: referralIndex,
+      initialPage: referralIndex??0,
 
       /// >1 allows us to use [Container.margin] to add a border that
       /// is only visible while scrolling between pages
@@ -72,12 +72,12 @@ class _MediaScreenState extends State<_MediaScreen> {
 
               /// Don't scroll side-to-side with 1 item
               physics: ClampingScrollPhysics(),
-              children: status.mediaAttachments.map((a) {
+              children: (status.mediaAttachments ?? []).map((a) {
                 return Container(
                   /// Compensate for [PageController.viewportFraction]
                   margin: EdgeInsets.symmetric(horizontal: gap / 2),
                   child: Dismissible(
-                    key: Key(status.id),
+                    key: Key(status.id!),
                     direction: DismissDirection.vertical,
 
                     /// Cannot be null because the hero tries to animate if it is
@@ -87,7 +87,7 @@ class _MediaScreenState extends State<_MediaScreen> {
                       /// The box fit has to match the sibling Hero
                       fit: BoxFit.contain,
                       child: Hero(
-                        tag: a.id,
+                        tag: a.id!,
                         child: Image.network(
                           a.previewUrl.toString(),
                           fit: BoxFit.cover,

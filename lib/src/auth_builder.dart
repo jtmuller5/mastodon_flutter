@@ -37,7 +37,7 @@ class AuthBuilder extends StatefulWidget {
 
 class AuthBuilderState extends State<AuthBuilder> with WidgetsBindingObserver {
   /// StreamSubscription to an Account
-  StreamSubscription<Account>? _subAccount;
+  StreamSubscription<Account?>? _subAccount;
 
   /// Here we listen for the Account from the provided AuthBloc and call [_onAccountChanged]
   @override

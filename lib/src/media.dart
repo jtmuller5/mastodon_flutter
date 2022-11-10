@@ -18,9 +18,9 @@ class Media extends StatefulWidget {
 }
 
 class _MediaState extends State<Media> {
-  List<Attachment> get images => widget.status.mediaAttachments.where((a) => a.type == AttachmentType.image).take(4).toList();
+  List<Attachment>? get images => widget.status.mediaAttachments?.where((a) => a.type == AttachmentType.image).take(4).toList();
 
-  bool get hasImages => images.isNotEmpty;
+  bool get hasImages => images?.isNotEmpty ?? false;
   bool _showSensitiveMedia = false;
   double? _sigmaX;
   double? _sigmaY;
@@ -69,14 +69,13 @@ class _MediaState extends State<Media> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(0),
           child: MediaGrid(
-            children: images
-                .map(
+            children: (images ?? []).map(
                   (i) => GestureDetector(
                     onTap: () => _handleNavigate(context, i),
 
                     /// The box fit has to match the sibling Hero
                     child: Hero(
-                      tag: i.id,
+                      tag: i.id!,
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(

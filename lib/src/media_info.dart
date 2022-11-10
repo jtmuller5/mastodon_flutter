@@ -23,7 +23,7 @@ class _MediaInfoState extends State<MediaInfo> {
   String? get username => status.account?.username;
 
   String get timestamp => timeago
-      .format(status.createdAt, locale: "en_short")
+      .format(status.createdAt!, locale: "en_short")
       .replaceAll(" ", "")
       .replaceAll("~", "");
 
@@ -75,7 +75,7 @@ class _MediaInfoState extends State<MediaInfo> {
                 children: <Widget>[
                   CircleAvatar(
                     backgroundImage:
-                        NetworkImage(status.account.avatarStatic.toString()),
+                        NetworkImage(status.account!.avatarStatic.toString()),
                   ),
                   SizedBox(width: 8),
                   Expanded(
