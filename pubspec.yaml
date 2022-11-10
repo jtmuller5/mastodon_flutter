@@ -16,7 +16,7 @@ dependencies:
   html: ^0.15.1
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.6
-  feather_icons_flutter: ^4.7.4
+  flutter_feather_icons: ^2.0.0+1
   timeago: ^3.3.0
   stack_trace: ^1.10.0
 

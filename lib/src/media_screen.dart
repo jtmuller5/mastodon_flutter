@@ -1,5 +1,5 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:mastodon_dart/mastodon_dart.dart';
 import 'package:mastodon_flutter/mastodon_flutter.dart';
 
