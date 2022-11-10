@@ -63,12 +63,10 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                RaisedButton(
+              children: [
+                ElevatedButton(
                   child: Text("Get login code"),
                   onPressed: () => _authBuilderKey.currentState.launchUrl(),
-                  color: Colors.blue,
-                  textColor: Colors.white,
                 ),
               ],
             )

@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:collection/collection.dart';
 
 /// Takes 1-4 widgets and lays them out in a social-media style grid.
 /// [aspectRatio] and [gap] can both be overridden.
@@ -20,7 +21,7 @@ class MediaGrid extends StatelessWidget {
   final double gap;
 
   MediaGrid({
-    @required List<Widget> children,
+    required List<Widget> children,
     this.aspectRatio = 1.6,
     this.gap = 4.0,
   })  : this.children = children.map((c) => Expanded(child: c)).toList(),
@@ -29,7 +30,7 @@ class MediaGrid extends StatelessWidget {
 
   int get count => children.length;
 
-  List<List<Widget>> get layout {
+  List<List<Widget>>? get layout {
     switch (count) {
       case 1:
         return [
@@ -63,12 +64,12 @@ class MediaGrid extends StatelessWidget {
       aspectRatio: aspectRatio,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
+        children: [
           /// Left column
           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: layout.first,
+              children: layout?.firstOrNull ?? [],
             ),
           ),
 
@@ -80,12 +81,12 @@ class MediaGrid extends StatelessWidget {
               : Container(),
 
           /// Right column
-          layout.last.isEmpty
+          (layout?.lastOrNull ?? []).isEmpty
               ? Container()
               : Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: layout.last,
+                    children: layout!.last,
                   ),
                 ),
         ],

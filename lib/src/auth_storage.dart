@@ -5,21 +5,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthStorage extends AuthStorageDelegate {
   /// Save an authentication token
   @override
-  Future<void> saveToken(String token) async {
+  Future<bool> saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString("token", token);
   }
 
   /// Delete an authentication token
   @override
-  Future<void> deleteToken() async {
+  Future<bool> deleteToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.remove("token");
   }
 
   /// Retrieve an authentication token
   @override
-  Future<String> get fetchToken async {
+  Future<String?> get fetchToken async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString("token");
   }

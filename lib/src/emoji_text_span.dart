@@ -8,10 +8,10 @@ import 'package:flutter/rendering.dart';
 /// See https://github.com/flutter/flutter/issues/28894
 class EmojiTextSpan extends TextSpan {
   EmojiTextSpan({
-    TextStyle style,
-    String text,
-    List<TextSpan> children,
-    GestureRecognizer recognizer,
+    TextStyle? style,
+    String? text,
+    List<TextSpan>? children,
+    GestureRecognizer? recognizer,
   }) : super(
             style: style,
             children: _parse(style, text)..addAll(children ?? []),
@@ -27,7 +27,7 @@ class EmojiTextSpan extends TextSpan {
       r"|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]"
       r"|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])+)");
 
-  static List<TextSpan> _parse(TextStyle style, String text) {
+  static List<TextSpan> _parse(TextStyle? style, String? text) {
     /// Skip if not iOS
     if (Platform.isIOS == false) {
       return [TextSpan(style: style, text: text)];
@@ -36,20 +36,22 @@ class EmojiTextSpan extends TextSpan {
     final _style = style ?? const TextStyle(fontSize: 16, height: 1.1);
 
     final emojiStyle = _style.copyWith(
-      fontSize: (_style?.fontSize ?? 16) * 1.25,
-      height: (_style?.height ?? 1.1) * 0.6,
+      fontSize: (_style.fontSize ?? 16) * 1.25,
+      height: (_style.height ?? 1.1) * 0.6,
       letterSpacing: 2,
     );
 
     final spans = <TextSpan>[];
 
-    text.splitMapJoin(
+    text?.splitMapJoin(
       regex,
       onMatch: (m) {
         spans.add(TextSpan(text: m.group(0), style: emojiStyle));
+        return '';
       },
       onNonMatch: (s) {
         spans.add(TextSpan(text: s));
+        return '';
       },
     );
 

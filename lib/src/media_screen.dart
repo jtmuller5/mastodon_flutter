@@ -24,14 +24,14 @@ class _MediaScreen extends StatefulWidget {
   final Status status;
   final Attachment attachment;
 
-  _MediaScreen({@required this.status, @required this.attachment});
+  _MediaScreen({required this.status, required this.attachment});
 
   @override
   _MediaScreenState createState() => _MediaScreenState();
 }
 
 class _MediaScreenState extends State<_MediaScreen> {
-  PageController _controller;
+  PageController? _controller;
 
   Status get status => widget.status;
   Attachment get attachment => widget.attachment;
@@ -59,7 +59,7 @@ class _MediaScreenState extends State<_MediaScreen> {
   @override
   Widget build(BuildContext context) {
     final pageWidth = MediaQuery.of(context).size.width;
-    final gap = (pageWidth * _controller.viewportFraction - pageWidth);
+    final gap = (pageWidth * _controller!.viewportFraction - pageWidth);
 
     return Material(
       color: Colors.grey.shade900,
@@ -127,7 +127,7 @@ class _MediaScreenState extends State<_MediaScreen> {
 /// Particularly useful for creating a [Hero] animation that
 /// goes from a social-media style feed to a full-screen media view.
 class _HeroDialogRoute<T> extends PageRoute<T> {
-  _HeroDialogRoute({this.builder}) : super();
+  _HeroDialogRoute({required this.builder}) : super();
 
   final WidgetBuilder builder;
 

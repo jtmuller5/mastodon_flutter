@@ -20,14 +20,14 @@ class StatusContent extends StatelessWidget {
   final Color textColor;
 
   StatusContent({
-    @required Status status,
+    required Status status,
     this.textColor = Colors.black,
   })  : html = parse(status.content),
         status = status;
 
-  Element get body => html.body;
-  String get text => html.body.text;
-  String get content => html.body.innerHtml;
+  Element? get body => html.body;
+  String? get text => html.body?.text;
+  String? get content => html.body?.innerHtml;
 
   TextStyle get textStyle => TextStyle(
         fontSize: 16,
@@ -88,7 +88,7 @@ class StatusContent extends StatelessWidget {
     /// Remove all the trailing whitespace
     final filtered = spans.reversed
         .skipWhile(
-          (span) => allWhitespace.hasMatch(span?.toPlainText()),
+          (span) => allWhitespace.hasMatch(span.toPlainText()),
         )
         .toList()
         .reversed
@@ -99,7 +99,7 @@ class StatusContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final spans = parseNode(html.body);
+    final spans = parseNode(html.nodes.first);
 
     return RichText(
       text: TextSpan(

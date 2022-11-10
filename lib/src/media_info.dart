@@ -8,7 +8,7 @@ import 'package:html/parser.dart';
 /// at the bottom of the MediaScreen
 class MediaInfo extends StatefulWidget {
   final Status status;
-  MediaInfo({@required this.status});
+  MediaInfo({required this.status});
 
   @override
   _MediaInfoState createState() => _MediaInfoState();
@@ -19,15 +19,15 @@ class _MediaInfoState extends State<MediaInfo> {
 
   Status get status => widget.status;
 
-  String get name => status?.account?.displayName;
-  String get username => status?.account?.username;
+  String? get name => status.account?.displayName;
+  String? get username => status.account?.username;
 
   String get timestamp => timeago
-      .format(status?.createdAt, locale: "en_short")
+      .format(status.createdAt, locale: "en_short")
       .replaceAll(" ", "")
       .replaceAll("~", "");
 
-  String get content => parse(status?.content).documentElement.text;
+  String? get content => parse(status.content).documentElement?.text;
 
   @override
   void initState() {

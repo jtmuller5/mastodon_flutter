@@ -1,15 +1,17 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:mastodon_dart/mastodon_dart.dart';
-import '../src/media_screen.dart';
+
 import '../src/media_grid.dart';
+import '../src/media_screen.dart';
 
 /// This widget renders images found in a Status
 /// todo: add support for other media
 class Media extends StatefulWidget {
   final Status status;
 
-  Media({@required this.status});
+  Media({required this.status});
 
   @override
   _MediaState createState() => _MediaState();
@@ -20,9 +22,9 @@ class _MediaState extends State<Media> {
 
   bool get hasImages => images.isNotEmpty;
   bool _showSensitiveMedia = false;
-  double _sigmaX;
-  double _sigmaY;
-  double _buttonOpacity;
+  double? _sigmaX;
+  double? _sigmaY;
+  double? _buttonOpacity;
 
   @override
   void initState() {
@@ -85,19 +87,21 @@ class _MediaState extends State<Media> {
                           ),
                         ),
                         child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: _sigmaX, sigmaY: _sigmaY),
+                          filter: ImageFilter.blur(sigmaX: _sigmaX!, sigmaY: _sigmaY!),
                           child: Container(
                             decoration: BoxDecoration(color: Colors.white.withOpacity(0)),
                             child: Center(
                               child: Opacity(
-                                opacity: _buttonOpacity,
+                                opacity: _buttonOpacity!,
                                 child: widget.status.sensitive == true && _showSensitiveMedia == false
-                                    ? FlatButton(
-                                        color: Colors.grey[700],
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(6),
-                                        ),
-                                        padding: EdgeInsets.only(left: 12, right: 12, top: 10, bottom: 10),
+                                    ? OutlinedButton(
+                                        style: ButtonStyle(
+                                            padding: MaterialStateProperty.resolveWith(
+                                              (states) => EdgeInsets.only(left: 12, right: 12, top: 10, bottom: 10),
+                                            ),
+                                            shape: MaterialStateProperty.resolveWith((states) => RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(6),
+                                                ))),
                                         child: Text('Sensitive content', style: TextStyle(fontSize: 18)),
                                         onPressed: () {
                                           setState(() {
